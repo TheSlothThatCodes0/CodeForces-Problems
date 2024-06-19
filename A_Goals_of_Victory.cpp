@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std; 
+
+void solve()
+{
+    int n, sum = 0;
+    cin >> n;
+    
+
+    for (int i = 0; i < n-1; i++)
+    {
+        int x;
+        cin >> x;
+        sum += x;
+    }
+
+    cout << -sum << endl;
+}
+
+int main()
+{
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve();
+    }
+    
+     return 0;
+}
