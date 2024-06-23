@@ -1,5 +1,8 @@
-#include <iostream>
 #include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
 using namespace std;
 
 #define ll long long
@@ -10,110 +13,52 @@ using namespace std;
 #define int ll
 #define pb push_back
 
-int gcd(int a, int b)
-{
-    if (!a || !b)
-        return a | b;
-    unsigned shift = __builtin_ctz(a | b);
-    a >>= __builtin_ctz(a);
-    do
-    {
-        b >>= __builtin_ctz(b);
-        if (a > b)
-            swap(a, b);
-        b -= a;
-    } while (b);
-    return a << shift;
-}
+void solve() {
+    int n, k, a, b;
+    cin >> n >> k >> a >> b;
 
-int lcm(int a, int b)
-{
-    return a / gcd(a, b) * b;
-}
+    vector<pair<int, int>> cords(n);
 
-int lcm(vll a)
-{
-    int result = 1;
-    for (int i = 0; i < a.size(); i++)
-    {
-        result = lcm(result, a[i]);
+    for (int i = 0; i < n; i++) {
+        int x, y;
+        cin >> x >> y;
+        cords[i] = make_pair(x, y);
     }
-    return result;
-}
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
-        return x + 1;
+    vll distanceFromStart, distanceFromEnd;
+
+    for (int i = 0; i < k; i++) {
+        int distance = abs(cords[a - 1].first - cords[i].first) + abs(cords[a - 1].second - cords[i].second);
+        distanceFromStart.pb(distance);
+    }
+
+    for (int i = 0; i < k; i++) {
+        int distance = abs(cords[b - 1].first - cords[i].first) + abs(cords[b - 1].second - cords[i].second);
+        distanceFromEnd.pb(distance);
+    }
+
+    int distanceBetween = abs(cords[a - 1].first - cords[b - 1].first) + abs(cords[a - 1].second - cords[b - 1].second);
+
+    if (!distanceFromEnd.empty() && !distanceFromStart.empty()) {
+        sort(distanceFromEnd.begin(), distanceFromEnd.end());
+        sort(distanceFromStart.begin(), distanceFromStart.end());
+
+        int distanceFromCities = distanceFromStart[0] + distanceFromEnd[0];
+        distanceFromCities = min(distanceFromCities, distanceBetween);
+
+        cout << distanceFromCities << endl;
     } else {
-        return x;
+        cout << distanceBetween << endl;
     }
 }
 
-vector<long long> primeFactors(long long n) {
-    vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
-            factorization.push_back(d);
-            n /= d;
-        }
-    }
-    if (n > 1)
-        factorization.push_back(n);
-    return factorization;
-}
-
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-
-void solve()
-{
-    int n, k, a, b; cin >> n >> k >> a >> b;
-    a--;
-    b--;
-    vector<pair<int, int>> coordinates;
-
-    for (int i = 0; i < n; i++)
-    {
-        int x, y; cin >> x >> y;
-        coordinates.push_back({x, y});
-    }
-    
-    vector<pair<int, int>> distances;
-
-    int startx = coordinates[b].first, starty = coordinates[b].second;
-
-    for (int i = 0; i < b+1; i++)
-    {
-        int cost;
-        int distance = 
-        if (i < k)
-        {
-            cost = 0;
-        }
-        else
-        {
-            cost = abs(coordinates[i].first - startx) + abs(coordinates[i].second - starty);
-        }
-        
-        
-    }
-    
-}
-
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-
-int32_t main()
-{
+int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
     int c;
     cin >> c;
-    while (c--)
-    {
+    while (c--) {
         solve();
     }
 
