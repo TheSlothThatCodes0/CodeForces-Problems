@@ -65,46 +65,43 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    int n; cin >> n;
+    vll a(n);
 
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        ans = max(ans, a[i] + i);
+    }
+
+    // if (n == 1)
+    // {
+    //     cout << a[0] << endl;
+    //     return;
+    // }
+
+
+    // a.pb(0);
+    // sort(a.begin(), a.end());
+
+    
+    // auto newEnd = unique(a.begin(), a.end());
+    // a.erase(newEnd, a.end());
+
+    // int ans = 0;
+    // for (int i = 0; i < a.size()-1; i++)
+    // {
+    //     ans += a[i+1] - a[i];
+    //     cout << "adding" << a[i+1] - a[i] << endl;
+    // }
+    
+
+    cout << ans << endl;
+    
 }
 
 // ____________________________________________________________________________________________________________
@@ -116,14 +113,12 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    // int c;
-    // cin >> c;
-    // while (c--)
-    // {
-    //     solve();
-    // }
-
-    solve();
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve();
+    }
 
     return 0;
 }

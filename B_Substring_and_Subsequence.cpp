@@ -41,18 +41,25 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-vector<long long> primeFactors(long long n) {
+vector<long long> primeFactors(long long n)
+{
     vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
             factorization.push_back(d);
             n /= d;
         }
@@ -65,65 +72,63 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
-
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    string s_string, s_sequence;
+    cin >> s_string >> s_sequence;
 
+    int longest_common = 0;
+    for (int i = 0; i < s_string.size(); i++)
+    {
+
+        char target = s_string[i];
+        for (int j = 0; j < s_sequence.size(); j++)
+        {
+            int stash = j;
+            int temp = 0;
+            if (s_sequence[j] == target)
+            {
+                j++;
+                temp = 1;
+                for (int k = i+1; k < s_string.size(); k++)
+                {
+                    if (s_sequence[j] == s_string[k])
+                    {
+                        j++;
+                        temp++;
+                    }
+                }
+
+                longest_common = max(longest_common, temp);
+            }
+            
+            j=stash;
+        }
+
+        // longest_common = max(longest_common, temp);
+    }
+
+    // cout << "longest_common: " << longest_common << endl;
+
+    int ans = s_sequence.size() + s_string.size() - longest_common;
+
+    cout << ans << endl;
 }
 
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
-
 
 int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    // int c;
-    // cin >> c;
-    // while (c--)
-    // {
-    //     solve();
-    // }
-
-    solve();
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve();
+    }
 
     return 0;
 }

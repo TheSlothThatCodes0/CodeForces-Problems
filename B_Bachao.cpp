@@ -41,18 +41,25 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-vector<long long> primeFactors(long long n) {
+vector<long long> primeFactors(long long n)
+{
     vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
             factorization.push_back(d);
             n /= d;
         }
@@ -65,65 +72,68 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
+vector<vector<int>> graph;
+vector<bool> visited;
 
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
+
+int dfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
+    visited[node] = true;
+    int size = 1;
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            size += dfs(neighbor, graph, visited);
         }
     }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
+    return size;
 }
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<int>> graph(n+1);
+    vector<bool> visited(n+1, false);
+
+    for (int i = 0; i < m; i++) {
         int a, b;
         cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
+        graph[a].push_back(b);
+        graph[b].push_back(a);
     }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+
+    int ans = 0;
+    int x = 1;
+
+    for (int i = 1; i <= n; ++i)
+    {
+        if (!visited[i])
+        {
+            int size = dfs(i, graph, visited);
+            ans++;
+            x = (x * size) % (int)(1e9 + 7);
+        }
+    }
+
+    cout << ans << " " << x << endl;
+    
 
 }
 
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
-
 
 int32_t main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    // int c;
-    // cin >> c;
-    // while (c--)
-    // {
-    //     solve();
-    // }
-
-    solve();
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve();
+    }
 
     return 0;
 }

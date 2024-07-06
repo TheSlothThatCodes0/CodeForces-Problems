@@ -65,46 +65,101 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    int n; cin >> n;
 
+    vll a(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    
+    if (n == 1)
+    {
+        cout << 1 << endl;
+        return;
+    }
+    
+
+    sort(a.begin(), a.end());
+
+    for(auto i: a)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
+
+
+
+    int alice = 0, bob = a.size()-1;
+
+    int ans = 0, tracker = INT_MIN;
+    while (alice < bob) {
+        while(a[alice] <= tracker && alice < bob) {
+            alice++;
+        }
+        if (alice < bob) {
+            ans++;
+            tracker = a[alice];
+        }
+        else
+        {
+            break;
+        }
+
+        bob--;
+        cout << "Alice: " << alice << " Bob: " << bob << " Ans: " << ans << endl;
+    }
+
+    cout << ans << endl;
+
+    cout << "________________________________" << endl;
+    
+}
+
+void solve2()
+{
+    int n; cin >> n;
+    vll a(n);
+    map<int, int> mp;
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        mp[a[i]]++;
+    }
+
+    set<int> s(a.begin(), a.end());
+    vll arr(s.begin(), s.end());
+
+    sort(arr.begin(), arr.end());
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        arr[i] = mp[arr[i]];
+    }
+
+    // for(auto i: arr)
+    // {
+    //     cout << i << " ";
+    // }
+    // cout << endl;
+
+
+    int ans = 0;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (arr[i] <= i)
+        {
+            ans++;
+        }
+        
+    }
+
+    cout <<( ans == 0 ? 1 : ans)<< endl;
+    
+    
 }
 
 // ____________________________________________________________________________________________________________
@@ -116,14 +171,12 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    // int c;
-    // cin >> c;
-    // while (c--)
-    // {
-    //     solve();
-    // }
-
-    solve();
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve2();
+    }
 
     return 0;
 }

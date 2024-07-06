@@ -65,46 +65,91 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    int n; cin >> n;
 
+    vll a(n), b(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+
+    int score_a = 0, score_b = 0;
+    int minus_count = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] > b[i])
+        {
+            score_a += a[i];
+        }
+        else if (b[i] > a[i])
+        {
+            score_b += b[i];
+        }
+        else
+        {
+            if (a[i] == -1)
+            {
+                minus_count++;
+                continue;
+            }
+            
+            if (score_a < score_b)
+            {
+                score_a += a[i];
+            }
+            else
+            {
+                score_b += b[i];
+            } 
+        }
+    }
+
+    if (minus_count > abs(score_a - score_b))
+    
+    {
+        minus_count -= abs(score_a - score_b);
+        score_a = min(score_a, score_b);
+        score_b = score_a;
+
+        if (minus_count % 2 == 0)
+        {
+            score_a -= minus_count / 2;
+            score_b -= minus_count / 2;
+        }
+        else
+        {
+            score_a -= minus_count / 2;
+            score_b -= minus_count / 2 + 1;
+        }
+    }
+    else
+    {
+        if (score_a < score_b)
+        {
+            score_b -= minus_count;
+        }
+        else
+        {
+            score_a -= minus_count;
+        }
+    }
+    
+
+    
+
+    // cout << "score_a: " << score_a << " score_b: " << score_b << endl; 
+    
+    cout << min(score_a, score_b) << endl;
 }
 
 // ____________________________________________________________________________________________________________
@@ -116,14 +161,12 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    // int c;
-    // cin >> c;
-    // while (c--)
-    // {
-    //     solve();
-    // }
-
-    solve();
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve();
+    }
 
     return 0;
 }

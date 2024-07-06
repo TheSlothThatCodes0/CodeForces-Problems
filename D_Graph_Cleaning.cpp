@@ -65,46 +65,64 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    int n, m, l; cin >> n >> m >> l;
 
+    vector<pair<int, int>> edges(m);
+    for (int i = 0; i < m; i++)
+    {
+        int a, b; cin >> a >> b;
+        edges[i] = {a, b};
+    }
+
+    vector<unordered_set<int>> adj(n + 1);
+    vector<int> count(n + 1, 0);
+
+    for (int i = 0; i < m; i++)
+    {
+        adj[edges[i].first].insert(edges[i].second);
+        adj[edges[i].second].insert(edges[i].first);
+    }
+
+    for (int i = 1; i <= n; ++i)
+    {
+        vector<int> arr(adj[i].begin(), adj[i].end());
+        sort(arr.begin(), arr.end());
+
+        for (int j = 0; j < arr.size(); ++j)
+        {
+            for (int k = j+1; k < arr.size(); ++k)
+            {
+                if (adj[arr[j]].count(arr[k]) > 0)
+                {
+                    count[i]++;
+                }
+            }
+        }
+    }
+    
+
+    for (int i = 1; i <= n; ++i)
+    {
+        count[i] /= 3;
+    }
+
+    int ans = 0;
+
+    for (int i = 1; i <= n; ++i)
+    {
+        if (count[i] < l)
+        {
+            ans ++;
+        }
+        
+    }
+    
+    cout << ans/2 << endl;
+
+    
 }
 
 // ____________________________________________________________________________________________________________

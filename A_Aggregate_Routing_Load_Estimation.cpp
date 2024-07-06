@@ -65,46 +65,36 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    int n, m; cin >> n >> m;
 
+    vector<pair<int, int>> connections(m);
+
+    for (int i = 0; i < m; i++)
+    {
+        int u, v; cin >> u >> v;
+        connections[i] = {u, v};
+    }
+
+    map<int, int> degree;
+
+    for (int i = 0; i < m; i++)
+    {
+        degree[connections[i].first]++;
+        degree[connections[i].second]++;
+    }
+
+    int ans = 0;
+    for(auto i: degree)
+    {
+        ans += i.second ;
+    }
+
+    cout << ans << endl;
+    
+    
 }
 
 // ____________________________________________________________________________________________________________
@@ -122,7 +112,6 @@ int32_t main()
     // {
     //     solve();
     // }
-
     solve();
 
     return 0;

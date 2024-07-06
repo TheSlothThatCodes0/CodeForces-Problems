@@ -65,46 +65,83 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void depthFirstSearch(int node, int parent, map<int,vector<int>>& mp, int depth, int& level, int& distance) {
-    if (depth > level) {
-        distance = node;
-        level = depth;
-    }
-
-    for (auto neighbor : mp[node]) {
-        if (neighbor != parent) {
-            depthFirstSearch(neighbor, node, mp, depth + 1, level, distance);
-        }
-    }
-}
-
-
-int calculateDiametere(map<int,vector<int>>& mp, int n) {
-    int level = -1;
-    int distance= 1;
-
-    depthFirstSearch(1, -1, mp, 0, level, distance);
-    level = -1;
-    depthFirstSearch(distance, -1, mp, 0, level, distance);
-
-    return level;
-}
 
 void solve()
 {
-    int n;
-    cin>>n;
-    map<int,vector<int>>mp;
-    for(int i = 0; i < n - 1; ++i) {
-        int a, b;
-        cin >> a >> b;
-        mp[a].pb(b);
-        mp[b].pb(a);
-    }
-    int diameter = calculateDiametere(mp, n);
-    int trips = 2 * (n - 1) - diameter;
-    cout << trips << endl;
+    int n, l, r; cin >> n >> l >> r;
+    vll a(n);
 
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    int count = 0;
+    int sum = 0;
+    int start = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] >= l && a[i] <= r)
+        {
+            count ++;
+            sum = 0;
+            start = 0;
+            // cout << "incremented1" << endl;
+            continue;
+        }
+        
+        if (a[i]  > r)
+        {
+            sum = 0;
+            start = 0;
+            continue;
+        }
+
+        if (start == 0)
+        {
+            sum += a[i];
+            start = i;
+        }
+        else
+        {
+            sum += a[i];
+        }
+        
+        
+
+        if (sum > r)
+        {
+            while(start < i)
+            {
+                sum -= a[start];
+                start ++;
+                if (sum >= l && sum <= r)
+                {
+                    count ++;
+                    sum = 0;
+                    start = 0;
+                    // cout << "incremented2" << endl;
+                    break;
+                }
+            }
+
+            sum = 0;
+            start = 0;
+        }
+        
+
+        if (sum >= l && sum <= r)
+        {
+            count ++;
+            sum = 0;
+            start = 0;
+            // cout << "incremented2" << endl;
+        }
+        
+    }
+
+    cout << count << endl;
+    
 }
 
 // ____________________________________________________________________________________________________________
@@ -116,14 +153,12 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    // int c;
-    // cin >> c;
-    // while (c--)
-    // {
-    //     solve();
-    // }
-
-    solve();
+    int c;
+    cin >> c;
+    while (c--)
+    {
+        solve();
+    }
 
     return 0;
 }
