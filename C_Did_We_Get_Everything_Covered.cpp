@@ -3,7 +3,7 @@
 using namespace std; 
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int a, b, c; cin >> a >> b>> c;
     string s; cin >> s;
@@ -62,7 +62,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

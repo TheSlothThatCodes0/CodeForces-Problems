@@ -6,7 +6,7 @@ using namespace std;
 #define YES cout << "YES" << endl
 #define NO cout << "NO" << endl
 
-void solve()
+void TheSlothThatCodes()
 {
     ll len; cin >> len;
 
@@ -39,7 +39,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

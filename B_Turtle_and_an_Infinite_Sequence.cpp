@@ -18,7 +18,7 @@ int setBit(int n, int i) {
     return n | (1 << i);
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     int n, t; cin >> n >> t;
     int ans = n;
@@ -61,7 +61,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

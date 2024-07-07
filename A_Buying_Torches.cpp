@@ -33,7 +33,7 @@ int lcm(int a, int b)
 
 // ____________________________________________________________________________________________________________
 
-void solve()
+void TheSlothThatCodes()
 {
     int x, y, k; cin >> x >> y >> k;
 
@@ -57,7 +57,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

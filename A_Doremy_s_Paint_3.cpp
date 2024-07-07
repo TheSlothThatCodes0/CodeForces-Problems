@@ -4,7 +4,7 @@
     #include<map>
     using namespace std; 
 
-    void solve()
+    void TheSlothThatCodes()
     {
         int len;
         cin >> len;
@@ -37,7 +37,7 @@
         cin >> c;
         while (c--)
         {
-            solve();
+            TheSlothThatCodes();
         }
         
         return 0;

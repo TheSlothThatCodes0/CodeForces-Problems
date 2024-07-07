@@ -66,7 +66,7 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int n; cin >> n;
 

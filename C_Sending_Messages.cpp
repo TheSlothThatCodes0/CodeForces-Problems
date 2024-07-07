@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     long long int no_messages, charge, send_charge, off_charge;
 
@@ -47,7 +47,7 @@ int main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
      return 0;

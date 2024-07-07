@@ -4,7 +4,7 @@ using namespace std;
 
 #define ll long long
 
-void solve()
+void TheSlothThatCodes()
 {
     ll len; cin >> len;
     vector<int> lst;
@@ -49,7 +49,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

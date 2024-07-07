@@ -18,7 +18,7 @@ int score[10][10] = {
 	{1,1,1,1,1,1,1,1,1,1}
 };
  
-void solve() {
+void TheSlothThatCodes() {
 	int ans = 0;
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
@@ -35,7 +35,7 @@ int main() {
 	cin >> c;
 	while (c--)
 	{
-		solve();
+		TheSlothThatCodes();
 	}
 	
 }

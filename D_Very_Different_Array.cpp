@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-void solve()
+void TheSlothThatCodes()
 {
     long long len_a, len_b;
     cin >> len_a >> len_b;
@@ -71,7 +71,7 @@ int main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     return 0;
 }

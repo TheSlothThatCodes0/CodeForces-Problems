@@ -90,7 +90,7 @@ int calculateDiametere(map<int,vector<int>>& mp, int n) {
     return level;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     int n;
     cin>>n;
@@ -123,7 +123,7 @@ int32_t main()
     //     solve();
     // }
 
-    solve();
+    TheSlothThatCodes();
 
     return 0;
 }

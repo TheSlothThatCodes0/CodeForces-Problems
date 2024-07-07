@@ -15,7 +15,7 @@ int log_a_b(int a, int b)
     return floor(log10(b) / log10(a)) + 1;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     int a, b; cin >> a >> b;
 
@@ -58,7 +58,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

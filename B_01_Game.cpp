@@ -9,7 +9,7 @@ using namespace std;
 #define endl "\n"
 #define int ll
 
-void solve()
+void TheSlothThatCodes()
 {
     string s; cin >> s;
     ll one = 0, zero = 0;
@@ -50,7 +50,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

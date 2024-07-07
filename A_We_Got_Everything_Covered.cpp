@@ -2,7 +2,7 @@
 #include<string>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     long long n, k; cin >> n >>k;
 
@@ -33,7 +33,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     int len;
     string num;
@@ -37,7 +37,7 @@ int main()
     int c;cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
      return 0;

@@ -11,7 +11,7 @@ using namespace std;
 #define pb push_back
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int t, p; cin >> p >> t;
     vll p_skills(t+p+1), t_skills(t+p+1);
@@ -134,7 +134,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

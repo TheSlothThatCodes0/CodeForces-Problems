@@ -72,7 +72,7 @@ vector<long long> primeFactors(long long n)
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void solve()
+void TheSlothThatCodes()
 {
     string s_string, s_sequence;
     cin >> s_string >> s_sequence;
@@ -127,7 +127,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

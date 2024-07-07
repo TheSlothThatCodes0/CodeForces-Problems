@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     int len; cin >> len;
     int count_2 = 0;
@@ -60,7 +60,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
      return 0;

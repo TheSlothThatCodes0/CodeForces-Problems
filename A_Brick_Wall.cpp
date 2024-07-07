@@ -2,7 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     int n, m; cin >> n >> m;
 
@@ -28,7 +28,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

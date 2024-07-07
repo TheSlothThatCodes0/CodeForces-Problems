@@ -66,7 +66,7 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int n, m; cin >> n >> m;
 
@@ -112,7 +112,7 @@ int32_t main()
     // {
     //     solve();
     // }
-    solve();
+    TheSlothThatCodes();
 
     return 0;
 }

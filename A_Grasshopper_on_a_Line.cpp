@@ -2,7 +2,7 @@
 #include<vector>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     int a, b; cin >> a >> b;
     int sum = 0, target = a;
@@ -40,7 +40,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
      return 0;

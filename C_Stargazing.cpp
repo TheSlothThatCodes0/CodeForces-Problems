@@ -66,7 +66,7 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int n; cin >> n;
     vll start(n), end(n);
@@ -103,7 +103,7 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    solve();
+    TheSlothThatCodes();
 
     return 0;
 }

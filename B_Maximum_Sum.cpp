@@ -49,48 +49,54 @@ int checkAndIncrement(int x) {
     }
 }
 
+vector<long long> primeFactors(long long n) {
+    vector<long long> factorization;
+    for (long long d = 2; d * d <= n; d++) {
+        while (n % d == 0) {
+            factorization.push_back(d);
+            n /= d;
+        }
+    }
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
+}
+
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
 
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
+    int n, k; cin >> n >> k;
 
-    vll a(n);
-    a.pb(0);
-    for (int i = 0; i < n; i++)
-    {
+    deque<int> a(n);
+    for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
-    vll b = a;
+    sort(a.begin(), a.end());
 
-    sort(b.begin(), b.end());
-
-    vector<pair<int, int>> store;
-    int track = 0;
-    for (int i = 0; i < n+1; i++)
+    vll prefixSum(n + 1, 0);
+    for (int i = 1; i <= n; i++)
     {
-        if (store.size() < n+1)
-        {
-            store.pb({b[track++], i});
-        }
-        else
-        {
-            break;
-        }
-
-        if (store.size() < n+1)
-        {
-            store.pb({b[track++], -i});
-        }
-        else
-        {
-            break;
-        }
+        prefixSum[i] = prefixSum[i - 1] + a[i - 1];
     }
     
+    int ans = 0;
+    for (int i = 0; i <= k; i++)
+    {
+        int start = 2 * i;
+        int end = n - k + i;
+
+        int temp = prefixSum[end] - prefixSum[start];
+        ans = max(ans, temp);
+    }
+
+    cout << ans << endl;
+    
 }
+
+// 10 11 12 13 15 22 
 
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________

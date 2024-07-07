@@ -11,7 +11,7 @@ using namespace std;
 #define pb push_back
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int n, p; cin >> n >> p;
     vector<int> arr(n+1, -1);
@@ -45,7 +45,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

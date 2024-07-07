@@ -65,109 +65,98 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-bool bitCheck(int a, int b)
+bool bitChecker(int a, int b)
 {
-    bool ans = true;
-    for (int i = 0; i < 30; i++)
+    int ans = true;
+    for (int i = 0; i < 32; i++)
     {
-        if (((a & (1 << i) == false) && (b & (1 << i)) == true) || ((a & (1 << i) == true) && (b & (1 << i)) == false))
+        int bit_a = (a >> i) & 1;
+        int bit_b = (b >> i) & 1;
+        if (!bit_a && bit_b)
         {
             ans = false;
             break;
         }
     }
-
+    
     return ans;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
-    int n, m; cin >> n >> m;
-    vll a(n), b(n), c(n);
+    int n, x; cin >> n >> x;
+    vll s1(n), s2(n), s3(n);
 
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
+    for (int i = 0; i < n; i++) {
+        cin >> s1[i];
     }
 
-    for(int i = 0; i < n; i++) {
-        cin >> b[i];
+    for (int i = 0; i < n; i++) {
+        cin >> s2[i];
     }
 
-    for(int i = 0; i < n; i++) {
-        cin >> c[i];
+    for (int i = 0; i < n; i++) {
+        cin >> s3[i];
     }
 
-    int temp = 0;
+
+    bool flag1 = true, flag2 = true, flag3 = true;
+    int knowledge = 0;
+
     for (int i = 0; i < n; i++)
     {
-        if (temp == m)
-        {
-            YES;
-            return;
-        }
-
-        else if (a[i] <= m && bitCheck(a[i], m))
-        {
-            temp = temp | a[i];
-            // cout <<"temp: " <<  temp << endl;
-        }
-        else
+        if (knowledge == x)
         {
             break;
         }
         
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        if (temp == m)
+        if (flag1)
         {
-            YES;
-            return;
-        }
-
-        else if (b[i] <= m && bitCheck(b[i], m))
-        {
-            temp = temp | b[i];
-            // cout <<"temp: " <<  temp << endl;
-        }
-        else
-        {
-            break;
+            if (bitChecker(x, s1[i]))
+            {
+                knowledge |= s1[i];
+            }
+            else
+            {
+                flag1 = false;
+            }   
         }
         
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        if (temp == m)
+        if (flag2)
         {
-            YES;
-            return;
-        }
-
-        else if (c[i] <= m && bitCheck(c[i], m))
-        {
-            temp = temp | c[i];
-            // cout <<"temp: " <<  temp << endl;
-        }
-        else
-        {
-            break;
+            if (bitChecker(x, s2[i]))
+            {
+                knowledge |= s2[i];
+            }
+            else
+            {
+                flag2 = false;
+            }   
         }
         
+        if (flag3)
+        {
+            if (bitChecker(x, s3[i]))
+            {
+                knowledge |= s3[i];
+            }
+            else
+            {
+                flag3 = false;
+            }   
+        }      
     }
 
-    if (temp == m)
+
+    if (knowledge == x)
     {
         YES;
-        return;
+        // cout << knowledge << endl;
     }
     else
     {
         NO;
-        // cout << temp << endl;
-        return;
+        // cout << knowledge << endl;
     }
 }
 
@@ -184,7 +173,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

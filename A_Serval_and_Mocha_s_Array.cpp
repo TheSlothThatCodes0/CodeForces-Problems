@@ -3,7 +3,7 @@
 #include<algorithm>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     int len; cin >> len;
     vector<int> lst;
@@ -39,7 +39,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
      return 0;

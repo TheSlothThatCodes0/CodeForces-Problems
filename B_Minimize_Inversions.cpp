@@ -2,7 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std; 
 
-void solve()
+void TheSlothThatCodes()
 {
     long long len; cin >> len;
     vector<int> a, b, c;
@@ -56,7 +56,7 @@ int main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

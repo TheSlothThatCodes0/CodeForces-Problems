@@ -53,7 +53,7 @@ int checkAndIncrement(int x) {
 // ____________________________________________________________________________________________________________
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int n; cin >> n;
 
@@ -85,7 +85,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

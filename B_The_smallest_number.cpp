@@ -53,7 +53,7 @@ int checkAndIncrement(int x) {
 // ____________________________________________________________________________________________________________
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int a, b, c; cin >> a >> b >> c;
 
@@ -73,7 +73,7 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    solve();
+    TheSlothThatCodes();
 
     return 0;
 }

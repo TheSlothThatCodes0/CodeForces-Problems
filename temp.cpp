@@ -61,7 +61,7 @@ int lcmOfDigits(int num)
     return result;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     ll n, m, k;
     cin >> n >> m >> k;

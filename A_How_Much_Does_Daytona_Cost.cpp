@@ -4,7 +4,7 @@
 using namespace std; 
 
 
-void solve()
+void TheSlothThatCodes()
 {
     int x, y;
     cin >> x >> y;
@@ -39,7 +39,7 @@ int main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

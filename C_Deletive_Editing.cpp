@@ -4,7 +4,7 @@ using namespace std;
 
 #define ll long long
 
-void solve()
+void TheSlothThatCodes()
 {
     string w, t; cin >> w >> t;
 

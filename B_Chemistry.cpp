@@ -10,7 +10,7 @@ using namespace std;
 #define int ll
 #define pb push_back
 
-void solve()
+void TheSlothThatCodes()
 {
     int k; cin >> k;
     int s; cin >> s;
@@ -64,7 +64,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

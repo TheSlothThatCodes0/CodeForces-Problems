@@ -19,7 +19,7 @@ int lcm(int a, int b) {
   return a * b / gcd;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     int n; cin >> n;
 
@@ -56,7 +56,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

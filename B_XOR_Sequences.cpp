@@ -14,7 +14,7 @@ bool isBitSet(int number, int i) {
     return (number & (1 << i)) != 0;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     int a, b; cin >> a >> b;
 
@@ -43,7 +43,7 @@ int32_t main()
     int c; cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
     
     return 0;

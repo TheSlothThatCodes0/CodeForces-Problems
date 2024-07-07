@@ -87,7 +87,7 @@ int dfs(int node, vector<vector<int>>& graph, vector<bool>& visited) {
     return size;
 }
 
-void solve()
+void TheSlothThatCodes()
 {
     int n, m;
     cin >> n >> m;
@@ -132,7 +132,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

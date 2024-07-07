@@ -7,7 +7,7 @@ using namespace std;
 #define NO cout << "NO" << endl
 #define vll vector<long long>
 
-void solve()
+void TheSlothThatCodes()
 {
     ll len;
     cin >> len;

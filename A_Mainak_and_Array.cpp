@@ -9,7 +9,7 @@
     #define endl "\n"
     #define int ll
 
-    void solve()
+    void TheSlothThatCodes()
     {
         ll len; cin >> len;
         vll lst;
@@ -57,7 +57,7 @@
         int c; cin >> c;
         while (c--)
         {
-            solve();
+            TheSlothThatCodes();
         }
         
         return 0;
