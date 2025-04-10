@@ -53,6 +53,22 @@ int checkAndIncrement(int x)
     }
 }
 
+vector<long long> primeFactors(long long n)
+{
+    vector<long long> factorization;
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
+            factorization.push_back(d);
+            n /= d;
+        }
+    }
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
+}
+
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
@@ -60,39 +76,64 @@ void TheSlothThatCodes()
 {
     int n, m;
     cin >> n >> m;
-    vll p(n), r(n);
 
-    for (int i = 0; i < n; i++)
+    vector<vector<int>> gridA, gridB;
+
+    for (int i = 0; i < n; ++i)
     {
-        cin >> p[i];
+        string input; cin >> input;
+        vll temp;
+        for (int j = 0; j < m; ++j)
+        {
+            char value = input[j];
+            temp.pb(value - '0');
+        }
+        gridA.pb(temp);
     }
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; ++i)
     {
-        cin >> r[i];
+        string input; cin >> input;
+        vll temp;
+        for (int j = 0; j < m; ++j)
+        {
+            char value = input[j];
+            temp.pb(value - '0');
+        }
+        gridB.pb(temp);
     }
 
-    vll maxi, total;
-    maxi.pb(r[0]);
-    total.pb(p[0]);
 
-    for (int i = 1; i < n; i++)
-    {
-        maxi.push_back(max(maxi.back(), r[i]));
-        total.pb(total.back() + p[i]);
-    }
 
-    int ans = 0;
-    for (int i = 0; i < m; i++)
-    {
-        if(i < n){
-            ans = max((total[i] + (m - i - 1 )* maxi[i]), ans);
-        }else{
-            ans = max(ans, total[n-1] + (m-n) * maxi[n-1]);
+    for (int i = n - 1; i >= 1; --i) {
+        for (int j = m - 1; j >= 1; --j) {
+            if (gridA[i][j] != gridB[i][j]) {
+                
+                int a = gridA[i][j];
+                int b = gridB[i][j];
+                gridA[i][j] = b;
+                gridA[i-1][j-1] = (gridA[i-1][j-1] + ((b - a + 3) % 3)) % 3;
+                gridA[i-1][j] = (gridA[i-1][j] + 2 * ((b - a + 3) % 3)) % 3;
+                gridA[i][j-1] = (gridA[i][j-1] + 2 * ((b - a + 3) % 3)) % 3;
+            }
         }
     }
 
-    cout << ans << endl;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (gridA[i][j] != gridB[i][j])
+            {
+                NO;
+                return;
+            }
+        }
+        
+    }
+    
+
+    YES;
 }
 
 // ____________________________________________________________________________________________________________

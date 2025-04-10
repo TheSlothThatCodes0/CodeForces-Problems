@@ -53,46 +53,57 @@ int checkAndIncrement(int x)
     }
 }
 
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-void TheSlothThatCodes()
+vector<long long> primeFactors(long long n)
 {
-    int n, m;
-    cin >> n >> m;
-    vll p(n), r(n);
-
-    for (int i = 0; i < n; i++)
+    vector<long long> factorization;
+    for (long long d = 2; d * d <= n; d++)
     {
-        cin >> p[i];
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> r[i];
-    }
-
-    vll maxi, total;
-    maxi.pb(r[0]);
-    total.pb(p[0]);
-
-    for (int i = 1; i < n; i++)
-    {
-        maxi.push_back(max(maxi.back(), r[i]));
-        total.pb(total.back() + p[i]);
-    }
-
-    int ans = 0;
-    for (int i = 0; i < m; i++)
-    {
-        if(i < n){
-            ans = max((total[i] + (m - i - 1 )* maxi[i]), ans);
-        }else{
-            ans = max(ans, total[n-1] + (m-n) * maxi[n-1]);
+        while (n % d == 0)
+        {
+            factorization.push_back(d);
+            n /= d;
         }
     }
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
+}
 
-    cout << ans << endl;
+// ____________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________
+
+void solve()
+{
+    int n;
+    cin >> n;
+    
+    vll arr(n);
+    for (int i = 0; i < n; i++){
+        cin >> arr[i];
+    }
+    
+    unordered_set<int> s;
+    for (auto a : arr)
+        s.insert(a);
+    
+    if(n == 1) {
+        int a = arr[0];
+        if(a == 0)
+            cout << -1 << endl;
+        else
+            cout << a << " " << a << endl;
+        return;
+    }
+    
+  
+    for (auto a : s) {
+        if (s.find(2 * a) == s.end()){
+            cout << a << " " << a << endl;
+            return;
+        }
+    }
+    
+    cout << -1 << endl;
 }
 
 // ____________________________________________________________________________________________________________
@@ -107,7 +118,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        TheSlothThatCodes();
+        solve();
     }
 
     return 0;

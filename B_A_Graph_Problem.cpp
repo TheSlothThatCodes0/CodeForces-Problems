@@ -68,6 +68,35 @@ vector<long long> primeFactors(long long n) {
 
 void TheSlothThatCodes()
 {
+    int n; cin >> n;
+    vll a(n);
+
+    
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+
+    int x = n;
+    int ans = 0;
+    while (x > 0)
+    {
+        ans ++;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] == x)
+            {
+                x--;
+            }
+            
+        }
+        
+    }
+    
+
+    cout << ans << endl;
+    
     
 }
 
@@ -80,12 +109,13 @@ int32_t main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int c;
-    cin >> c;
-    while (c--)
-    {
-        TheSlothThatCodes();
-    }
+    // int c;
+    // cin >> c;
+    // while (c--)
+    // {
+    //     TheSlothThatCodes();
+    // }
+    TheSlothThatCodes();
 
     return 0;
 }

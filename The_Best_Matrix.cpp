@@ -41,62 +41,72 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x)
-{
-    if (x - floor(x) > 0)
-    {
+int checkAndIncrement(int x) {
+    if (x - floor(x) > 0) {
         return x + 1;
-    }
-    else
-    {
+    } else {
         return x;
     }
 }
 
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-void TheSlothThatCodes()
-{
-    int n, m;
-    cin >> n >> m;
-    vll p(n), r(n);
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> p[i];
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> r[i];
-    }
-
-    vll maxi, total;
-    maxi.pb(r[0]);
-    total.pb(p[0]);
-
-    for (int i = 1; i < n; i++)
-    {
-        maxi.push_back(max(maxi.back(), r[i]));
-        total.pb(total.back() + p[i]);
-    }
-
-    int ans = 0;
-    for (int i = 0; i < m; i++)
-    {
-        if(i < n){
-            ans = max((total[i] + (m - i - 1 )* maxi[i]), ans);
-        }else{
-            ans = max(ans, total[n-1] + (m-n) * maxi[n-1]);
+vector<long long> primeFactors(long long n) {
+    vector<long long> factorization;
+    for (long long d = 2; d * d <= n; d++) {
+        while (n % d == 0) {
+            factorization.push_back(d);
+            n /= d;
         }
     }
-
-    cout << ans << endl;
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
 }
 
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
+
+
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    
+    vector<vll> A(n, vll(m));
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++){
+            cin >> A[i][j];
+        }
+    }
+
+    int total = n * m;
+    int ans = total; 
+    
+    for (int x = -1; x <= 1; x++) {
+        for (int y = -1; y <= 1; y++) {
+
+            if(x == 0 || y == 0) continue;
+
+            unordered_map<int,int> freq;
+            int maxi = 0;
+
+            for (int i = 0; i < n; i++){
+                for (int j = 0; j < m; j++){
+                    int base = A[i][j] - (i * x + j * y);
+                    freq[base]++;
+                    maxi = max(maxi, freq[base]);
+                }
+            }
+
+            ans = min(ans, total - maxi);
+        }
+    }
+    
+    cout << ans << endl;
+}
+
+
+// ____________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________
+
 
 int32_t main()
 {
@@ -107,7 +117,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        TheSlothThatCodes();
+        solve();
     }
 
     return 0;

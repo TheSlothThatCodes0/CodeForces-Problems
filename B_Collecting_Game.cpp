@@ -52,41 +52,42 @@ int checkAndIncrement(int x) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-
 void TheSlothThatCodes()
 {
     int n; cin >> n;
-    vector<pair<int, int>> a;
-    vll sumi(n);
-    for (int i = 0; i < n; i++) {
-        int temp; cin >> temp;
-        a.pb({temp, i});
-    }
-    map<int, int> mp;
+    vll a(n+1);
+    for(int i = 1; i <= n; i++) cin >> a[i];
 
-    sort(a.begin(), a.end());
-    int temp = 0;
-    for (int i = 0; i < n; i++)
-    {
-        temp += a[i].first;
-        mp[a[i].first] = temp;
+    vector<pair<int, int>> pairs(n+1);
+    for(int i = 1; i <= n; i++) {
+        pairs[i] = {a[i], i};
     }
-
-    vll ans(n);
-    int k = n-1;
-    for (int i = n-1; i >= 0; i--)
-    {
-        while(mp[a[i].first] < a[k].first)
-        {
-            k--;
+    
+    sort(pairs.begin()+1, pairs.end());
+    
+    vll next(n+1, 0);
+    vll sum(n+1, 0);
+    vll ans(n+1, 0);
+    
+    for(int i = 1; i <= n; i++) {
+        if(next[i-1] >= i) {
+            next[i] = next[i-1];
+            sum[i] = sum[i-1];
+        } else {
+            sum[i] = sum[i-1] + pairs[i].first;
+            next[i] = i;
+            
+            while(next[i]+1 <= n && sum[i] >= pairs[next[i]+1].first) {
+                next[i]++;
+                sum[i] += pairs[next[i]].first;
+            }
         }
-
-        ans[a[i].second] = k;
+        
+        ans[pairs[i].second] = next[i];
     }
-
-    for (int i = 0; i < n; i++)
-    {
-        cout << ans[i] << " ";
+    
+    for(int i = 1; i <= n; i++) {
+        cout << ans[i]-1 << " ";
     }
     cout << endl;
 }

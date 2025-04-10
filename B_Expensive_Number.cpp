@@ -53,44 +53,48 @@ int checkAndIncrement(int x)
     }
 }
 
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-void TheSlothThatCodes()
+vector<long long> primeFactors(long long n)
 {
-    int n, m;
-    cin >> n >> m;
-    vll p(n), r(n);
-
-    for (int i = 0; i < n; i++)
+    vector<long long> factorization;
+    for (long long d = 2; d * d <= n; d++)
     {
-        cin >> p[i];
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> r[i];
-    }
-
-    vll maxi, total;
-    maxi.pb(r[0]);
-    total.pb(p[0]);
-
-    for (int i = 1; i < n; i++)
-    {
-        maxi.push_back(max(maxi.back(), r[i]));
-        total.pb(total.back() + p[i]);
-    }
-
-    int ans = 0;
-    for (int i = 0; i < m; i++)
-    {
-        if(i < n){
-            ans = max((total[i] + (m - i - 1 )* maxi[i]), ans);
-        }else{
-            ans = max(ans, total[n-1] + (m-n) * maxi[n-1]);
+        while (n % d == 0)
+        {
+            factorization.push_back(d);
+            n /= d;
         }
     }
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
+}
+
+// ____________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________
+
+void solve()
+{
+    string s;
+    cin >> s;
+    int l = s.length();
+
+    int len_s = 0;
+    int zero = 0;
+
+    for (int i = 0; i < l; ++i)
+    {
+        if (s[i] == '0')
+        {
+            zero++;
+        }
+        else
+        {
+            int cur = zero + 1;
+            len_s = max(len_s, cur);
+        }
+    }
+
+    int ans = l - len_s;
 
     cout << ans << endl;
 }
@@ -107,7 +111,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        TheSlothThatCodes();
+        solve();
     }
 
     return 0;

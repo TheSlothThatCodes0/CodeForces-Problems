@@ -41,62 +41,77 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x)
-{
-    if (x - floor(x) > 0)
-    {
+int checkAndIncrement(int x) {
+    if (x - floor(x) > 0) {
         return x + 1;
-    }
-    else
-    {
+    } else {
         return x;
     }
 }
 
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-void TheSlothThatCodes()
-{
-    int n, m;
-    cin >> n >> m;
-    vll p(n), r(n);
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> p[i];
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        cin >> r[i];
-    }
-
-    vll maxi, total;
-    maxi.pb(r[0]);
-    total.pb(p[0]);
-
-    for (int i = 1; i < n; i++)
-    {
-        maxi.push_back(max(maxi.back(), r[i]));
-        total.pb(total.back() + p[i]);
-    }
-
-    int ans = 0;
-    for (int i = 0; i < m; i++)
-    {
-        if(i < n){
-            ans = max((total[i] + (m - i - 1 )* maxi[i]), ans);
-        }else{
-            ans = max(ans, total[n-1] + (m-n) * maxi[n-1]);
+vector<long long> primeFactors(long long n) {
+    vector<long long> factorization;
+    for (long long d = 2; d * d <= n; d++) {
+        while (n % d == 0) {
+            factorization.push_back(d);
+            n /= d;
         }
     }
-
-    cout << ans << endl;
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
 }
 
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
+
+int to_int(char a)
+{
+    return (a - '0');
+}
+
+void TheSlothThatCodes()
+{
+    string n; cin >> n;
+
+    if (n.size() == 1)
+    {
+        cout << n << endl;
+        return;
+    }
+    
+    for (int i = 1; i < n.size(); i++)
+    {
+        if (to_int(n[i]) % 2 == to_int(n[i-1]) % 2)
+        {
+            continue;
+        }
+        else
+        {
+            for (int j = i-1; j >= 0 ; j--)
+            {
+                if (to_int(n[j]) >= to_int(n[j+1]) && (to_int(n[j])%2) != to_int(n[j+1])%2)
+                {
+                    swap(n[j], n[j+1]);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    
+        
+    }
+
+    cout << n << endl;
+
+    
+}
+
+// ____________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________
+
 
 int32_t main()
 {
