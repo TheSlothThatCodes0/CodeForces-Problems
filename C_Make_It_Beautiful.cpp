@@ -66,18 +66,52 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 
 
+
+
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    int n;
+    ll k;
+    cin >> n >> k;
+    
+    vll a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    
+    vll costs;
+    for (ll x : a) {
+        ll cur = x;
+        while (true) {
+            int p = __builtin_ctzll(~cur);
+            if (p > 62) break;
+            
+            ll c = 1LL << p;
+            if (c > k) break;
+            
+            costs.pb(c);
+            cur += c;
+        }
+    }
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
-
-    unordered_set<int> st(arr.begin(), arr.end());
-
-    if(st.size() == n) NO;
-    else YES;
-
+    sort(costs.begin(), costs.end());
+    
+    ll bty = 0;
+    for(ll x : a) {
+        bty += __builtin_popcountll(x);
+    }
+    
+    ll ups = 0;
+    for(ll c : costs) {
+        if (k >= c) {
+            k -= c;
+            ups++;
+        } else {
+            break;
+        }
+    }
+    
+    cout << bty + ups << endl;
 }
 
 

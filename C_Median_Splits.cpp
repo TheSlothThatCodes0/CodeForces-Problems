@@ -72,54 +72,92 @@ vector<long long> primeFactors(long long n)
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void solve()
+void TheSlothThatCodes()
 {
-    int n;
-    cin >> n;
-
-    vector<pair<int, int>> a(n);
-
-    for (int i = 0; i < n; i++)  
+    int n, k;
+    cin >> n >> k;
+    vector<int> x(n + 3, 0);
+    for (int i = 1; i <= n; i++)
     {
-        int x;
-        cin >> x;
-        a[i] = {x, i+1}; 
+        ll a;
+        cin >> a;
+        x[i] = (a <= k);
     }
 
-    sort(a.begin(), a.end(), greater<pair<int,int>>());  
-
-    int p1 = 1, p2 = -1;
-
-    vll ans(n + 1);
-    ans[0] = 0;
-    int dis = 0;
-
-    for (int i = 0; i < n; i++)
+    vector<int> pre(n + 3, 0), suf(n + 4, 0);
+    vector<char> preg(n + 3, 0), sufg(n + 4, 0);
+    for (int i = 1; i <= n; i++)
     {
-        int index = a[i].second;
-        int times = a[i].first;
-        if (i % 2 == 0)
+        pre[i] = pre[i - 1] + x[i];
+        int len = i;
+        if (i < n && pre[i] * 2 >= len + (len & 1))
+            preg[i] = 1;
+    }
+    for (int i = n; i >= 1; i--)
+    {
+        suf[i] = suf[i + 1] + x[i];
+        int len = n - i + 1;
+        if (i > 1 && suf[i] * 2 >= len + (len & 1))
+            sufg[i] = 1;
+    }
+
+    vector<char> mid_end(n + 3, 0);
+    int l_end = 1, cnt_end = 0;
+    for (int r = 1; r <= n; ++r)
+    {
+        cnt_end += x[r];
+        while (l_end <= r &&
+               cnt_end * 2 < (r - l_end + 1) + ((r - l_end + 1) & 1))
         {
-            ans[index] = p1;
-            dis += 2 * p1 * times;
-            p1++;
+            cnt_end -= x[l_end++];
         }
-        else
-        {
-            ans[index] = p2;
-            dis += 2 * abs(p2) * times;
-            p2--;
-        }
+        mid_end[r] = (l_end <= r);
     }
 
-    cout << dis << endl;
-
-    for (auto i : ans)
+    vector<char> mid_start(n + 3, 0);
+    int r_start = n, cnt_start = 0;
+    for (int l = n; l >= 1; --l)
     {
-        cout << i << " ";
+        cnt_start += x[l];
+        while (r_start >= l &&
+               cnt_start * 2 < (r_start - l + 1) + ((r_start - l + 1) & 1))
+        {
+            cnt_start -= x[r_start--];
+        }
+        mid_start[l] = (r_start >= l);
     }
 
-    cout << endl;
+    bool seenP = false;
+    for (int r = 3; r <= n; r++)
+    {
+        if (r - 2 >= 1 && preg[r - 2])
+            seenP = true;
+        if (sufg[r] && seenP)
+        {
+            YES;
+            return;
+        }
+    }
+
+    for (int l = 1; l < n; l++)
+    {
+        if (preg[l] && mid_start[l + 1])
+        {
+            YES;
+            return;
+        }
+    }
+
+    for (int r = 2; r <= n; r++)
+    {
+        if (mid_end[r - 1] && sufg[r])
+        {
+            YES;
+            return;
+        }
+    }
+
+    NO;
 }
 
 // ____________________________________________________________________________________________________________
@@ -134,7 +172,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

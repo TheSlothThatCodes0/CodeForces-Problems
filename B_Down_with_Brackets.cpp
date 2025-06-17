@@ -41,18 +41,25 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-vector<long long> primeFactors(long long n) {
+vector<long long> primeFactors(long long n)
+{
     vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
             factorization.push_back(d);
             n /= d;
         }
@@ -65,26 +72,30 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    string s;
+    cin >> s;
+    int n = s.size();
+    int x = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        if (s[i] == '(')
+            x++;
+        else
+            x--;
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
-
-    unordered_set<int> st(arr.begin(), arr.end());
-
-    if(st.size() == n) NO;
-    else YES;
-
+        if (x == 0 && i + 1 < n)
+        {
+            YES;
+            return;
+        }
+    }
+    NO;
 }
 
-
-
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
-
 
 int32_t main()
 {

@@ -72,54 +72,97 @@ vector<long long> primeFactors(long long n)
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void solve()
+bool solve(string &p, string &s, int i, int j, vector<vll> &memo)
 {
-    int n;
-    cin >> n;
-
-    vector<pair<int, int>> a(n);
-
-    for (int i = 0; i < n; i++)  
+    if (i == p.size() && j == s.size())
     {
-        int x;
-        cin >> x;
-        a[i] = {x, i+1}; 
+        return true;
     }
 
-    sort(a.begin(), a.end(), greater<pair<int,int>>());  
-
-    int p1 = 1, p2 = -1;
-
-    vll ans(n + 1);
-    ans[0] = 0;
-    int dis = 0;
-
-    for (int i = 0; i < n; i++)
+    if (i == p.size() || j == s.size())
     {
-        int index = a[i].second;
-        int times = a[i].first;
-        if (i % 2 == 0)
-        {
-            ans[index] = p1;
-            dis += 2 * p1 * times;
-            p1++;
+        return false;
+    }
+
+    if (memo[i][j] != -1)
+    {
+        return memo[i][j] == 1;
+    }
+
+    if (p[i] != s[j])
+    {
+        memo[i][j] = 0;
+        return false;
+    }
+
+    bool result = false;
+
+    result = solve(p, s, i + 1, j + 1, memo);
+
+    if (j + 1 < s.size() && s[j] == s[j + 1])
+    {
+        result = result || solve(p, s, i + 1, j + 2, memo);
+    }
+
+    memo[i][j] = result ? 1 : 0;
+    return result;
+}
+
+void TheSlothThatCodes()
+{
+    string p, s;
+    cin >> p >> s;
+
+    int n = p.length();
+    int m = s.length();
+
+    if(m < n || m > 2 * n){
+        NO;
+        return;
+    }
+
+    int i = 0; 
+    int j = 0; 
+    bool possible = true;
+
+    while (i < n && j < m) {
+        if (p[i] != s[j]) {
+            possible = false;
+            break; 
         }
-        else
-        {
-            ans[index] = p2;
-            dis += 2 * abs(p2) * times;
-            p2--;
+
+        char current_char = p[i];
+
+        int count_p = 0;
+        int start_i = i;
+        while (i < n && p[i] == current_char) {
+            i++;
+            count_p++;
+        }
+
+        int count_s = 0;
+        int start_j = j;
+        while (j < m && s[j] == current_char) {
+            j++;
+            count_s++;
+        }
+
+        if (count_s < count_p || count_s > 2 * count_p) {
+            possible = false;
+            break;
         }
     }
 
-    cout << dis << endl;
-
-    for (auto i : ans)
-    {
-        cout << i << " ";
+    if (i < n || j < m) {
+         possible = false;
     }
 
-    cout << endl;
+
+    if (possible) {
+        YES;
+    } else {
+        NO;
+    }
 }
 
 // ____________________________________________________________________________________________________________
@@ -134,7 +177,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

@@ -69,15 +69,24 @@ vector<long long> primeFactors(long long n) {
 void TheSlothThatCodes()
 {
     int n; cin >> n;
+
     vll arr(n);
+    int sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+        if(arr[i] == 1) sum++;
+    }
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    bool trigger = false;
 
-    unordered_set<int> st(arr.begin(), arr.end());
+    for (int i = 1; i < n; i++)
+    {
+        if(arr[i-1] == arr[i] && arr[i] == 0) trigger = true;
+    }
 
-    if(st.size() == n) NO;
-    else YES;
-
+    if(sum > n-1 || trigger) YES;
+    else NO;
 }
 
 

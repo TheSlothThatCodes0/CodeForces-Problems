@@ -72,53 +72,91 @@ vector<long long> primeFactors(long long n)
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void solve()
+void TheSlothThatCodes()
 {
     int n;
     cin >> n;
-
-    vector<pair<int, int>> a(n);
-
-    for (int i = 0; i < n; i++)  
+    vll d(n + 1);
+    for (int i = 1; i <= n; i++)
     {
-        int x;
-        cin >> x;
-        a[i] = {x, i+1}; 
+        cin >> d[i];
     }
 
-    sort(a.begin(), a.end(), greater<pair<int,int>>());  
-
-    int p1 = 1, p2 = -1;
-
-    vll ans(n + 1);
-    ans[0] = 0;
-    int dis = 0;
-
-    for (int i = 0; i < n; i++)
+    vll l(n + 1), r(n + 1);
+    for (int i = 1; i <= n; i++)
     {
-        int index = a[i].second;
-        int times = a[i].first;
-        if (i % 2 == 0)
+        cin >> l[i] >> r[i];
+    }
+
+    vector<pair<int, int>> arr(n + 1);
+    arr[0] = {0, 0};
+    int x = 0, y = 0;
+
+    for (int i = 1; i <= n; i++)
+    {
+        int left, right;
+        if (d[i] == 0)
         {
-            ans[index] = p1;
-            dis += 2 * p1 * times;
-            p1++;
+            left = x;
+            right = y;
+        }
+        else if (d[i] == 1)
+        {
+            left = x + 1;
+            right = y + 1;
+        }
+        else
+        { 
+            left = x;
+            right = y + 1;
+        }
+
+        x = max(left, l[i]);
+        y = min(right, r[i]);
+
+        if (x > y)
+        {
+            cout << -1 << endl;
+            return;
+        }
+        
+        arr[i] = {x, y};
+    }
+
+
+    vll temp(n + 1), ans(n + 1);
+    temp[n] = y; 
+
+    for (int i = n; i >= 1; i--)
+    {
+        if (d[i] != -1)
+        {
+            ans[i] = d[i];
+            temp[i - 1] = temp[i] - d[i];
         }
         else
         {
-            ans[index] = p2;
-            dis += 2 * abs(p2) * times;
-            p2--;
+            int left = arr[i - 1].first;
+            int right = arr[i - 1].second;
+
+            if (temp[i] >= left && temp[i] <= right)
+            {
+                ans[i] = 0;
+                temp[i - 1] = temp[i];
+            }
+            else
+            {
+                ans[i] = 1;
+                temp[i - 1] = temp[i] - 1;
+            }
         }
     }
 
-    cout << dis << endl;
-
-    for (auto i : ans)
+    for (int i = 1; i <= n; i++)
     {
-        cout << i << " ";
+        cout << ans[i] << " ";
     }
-
+     
     cout << endl;
 }
 
@@ -134,7 +172,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

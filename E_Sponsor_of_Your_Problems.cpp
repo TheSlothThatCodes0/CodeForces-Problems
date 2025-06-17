@@ -68,18 +68,42 @@ vector<long long> primeFactors(long long n) {
 
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    string l, r;
+    cin >> l >> r;
+    int d = l.size();
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    if(l == r){
+        cout << 2*d << endl;
+        return;
+    }
 
-    unordered_set<int> st(arr.begin(), arr.end());
+    int p = 0;
+    while(p < d && l[p] == r[p]) ++p;
 
-    if(st.size() == n) NO;
-    else YES;
+    int x = (r[p] - l[p] >= 2) ? 2*p : LLONG_MAX;
 
+    int cl = 1; 
+    for(int i = p+1; i < d; i++){
+        if(l[i] == '9'){
+            cl += 1; 
+        } else {
+            break;
+        }
+    }
+
+    int cr = 1;
+    for(int i = p+1; i < d; i++){
+        if(r[i] == '0'){
+            cr += 1;
+        } else {
+
+            break;
+        }
+    }
+
+    int ans = min({ x, cl + 2*p, cr + 2*p });
+    cout << ans << endl;
 }
-
 
 
 // ____________________________________________________________________________________________________________

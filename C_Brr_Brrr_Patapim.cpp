@@ -41,18 +41,25 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-vector<long long> primeFactors(long long n) {
+vector<long long> primeFactors(long long n)
+{
     vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
             factorization.push_back(d);
             n /= d;
         }
@@ -65,26 +72,62 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    int n;
+    cin >> n;
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    vector<vll> arr(n, vll(n));
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            cin >> arr[i][j];
+        }
+    }
 
-    unordered_set<int> st(arr.begin(), arr.end());
+    vll p(2 * n + 1, 0);
+    vector<bool> seen(2 * n + 1, false);
 
-    if(st.size() == n) NO;
-    else YES;
+    for (int i = 2; i <= 2 * n; ++i)
+    {
+        int x, y;
+        if (i <= n + 1)
+        {
+            x = 1;
+            y = i - 1;
+        }
+        else
+        {
+            y = n;
+            x = i - n;
+        }
 
+        int value = arr[x - 1][y - 1];
+        p[i] = value;
+        seen[value] = true;
+    }
+
+    int first = -1;
+    for (int i = 1; i <= 2 * n; ++i)
+    {
+        if (!seen[i])
+        {
+            first = i;
+            break;
+        }
+    }
+    p[1] = first;
+
+    for (int i = 1; i <= 2 * n; ++i)
+    {
+        cout << p[i] << " ";
+    }
+    cout << endl;
 }
 
-
-
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
-
 
 int32_t main()
 {

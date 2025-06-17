@@ -66,18 +66,45 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 
 
-void TheSlothThatCodes()
-{
-    int n; cin >> n;
-    vll arr(n);
+void TheSlothThatCodes() {
+    ll n;
+    cin >> n;
+    string ans;
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    cout << "digit" << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
 
-    unordered_set<int> st(arr.begin(), arr.end());
+    cout << "mul 9" << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
 
-    if(st.size() == n) NO;
-    else YES;
+    cout << "digit" << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
 
+    cout << "digit" << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
+
+    cout << "div 9" << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
+
+    cout << "mul " << n << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
+
+    cout << "!" << endl;
+    cout.flush();
+    cin >> ans;
+    if (ans == "-1") exit(0);
 }
 
 

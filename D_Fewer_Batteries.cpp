@@ -72,54 +72,78 @@ vector<long long> primeFactors(long long n)
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-void solve()
+void TheSlothThatCodes()
 {
-    int n;
-    cin >> n;
-
-    vector<pair<int, int>> a(n);
-
-    for (int i = 0; i < n; i++)  
+    int n, m;
+    cin >> n >> m;
+    vll b(n + 1);
+    for (int i = 1; i <= n; i++)
     {
-        int x;
-        cin >> x;
-        a[i] = {x, i+1}; 
+        cin >> b[i];
     }
 
-    sort(a.begin(), a.end(), greater<pair<int,int>>());  
-
-    int p1 = 1, p2 = -1;
-
-    vll ans(n + 1);
-    ans[0] = 0;
-    int dis = 0;
-
-    for (int i = 0; i < n; i++)
+    vector<vector<pair<int, ll>>> adj(n + 1);
+    vll weights;
+    weights.reserve(m);
+    for (int i = 0; i < m; i++)
     {
-        int index = a[i].second;
-        int times = a[i].first;
-        if (i % 2 == 0)
+        int u, v;
+        ll w;
+        cin >> u >> v >> w;
+        adj[u].push_back({v, w});
+        weights.push_back(w);
+    }
+
+    if (m == 0)
+    {
+        cout << -1 << endl;
+        return;
+    }
+
+    sort(weights.begin(), weights.end());
+    weights.erase(unique(weights.begin(), weights.end()), weights.end());
+
+    vll dp(n + 1, -1);
+    ll ans = -1;
+    int lo = 0, hi = weights.size() - 1;
+
+    while (lo <= hi)
+    {
+        int mid = (lo + hi) >> 1;
+        ll W = weights[mid];
+
+        fill(dp.begin(), dp.end(), -1LL);
+        dp[1] = b[1];
+        for (int u = 1; u <= n; u++)
         {
-            ans[index] = p1;
-            dis += 2 * p1 * times;
-            p1++;
+            if (dp[u] < 0)
+                continue;
+            for (auto e : adj[u])
+            {
+                int v = e.first;
+                ll w = e.second;
+                if (w > W || dp[u] < w)
+                    continue;
+                ll x = dp[u] + b[v];
+                if (x > dp[v])
+                {
+                    dp[v] = x;
+                }
+            }
+        }
+
+        if (dp[n] >= 0)
+        {
+            ans = W;
+            hi = mid - 1;
         }
         else
         {
-            ans[index] = p2;
-            dis += 2 * abs(p2) * times;
-            p2--;
+            lo = mid + 1;
         }
     }
 
-    cout << dis << endl;
-
-    for (auto i : ans)
-    {
-        cout << i << " ";
-    }
-
-    cout << endl;
+    cout << ans << endl;
 }
 
 // ____________________________________________________________________________________________________________
@@ -134,7 +158,7 @@ int32_t main()
     cin >> c;
     while (c--)
     {
-        solve();
+        TheSlothThatCodes();
     }
 
     return 0;

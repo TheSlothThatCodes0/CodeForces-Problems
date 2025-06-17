@@ -68,16 +68,16 @@ vector<long long> primeFactors(long long n) {
 
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    int w, h, a, b;
+    cin >> w >> h >> a >> b;
+    int x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    int dx = abs(x1 - x2);
+    int dy = abs(y1 - y2);
 
-    unordered_set<int> st(arr.begin(), arr.end());
-
-    if(st.size() == n) NO;
-    else YES;
-
+    if ((dx % a == 0 && (x1 != x2 || dy % b == 0)) || (dy % b == 0 && (y1 != y2 || dx % a == 0))) YES;
+    else NO;
 }
 
 

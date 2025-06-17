@@ -41,18 +41,25 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-vector<long long> primeFactors(long long n) {
+vector<long long> primeFactors(long long n)
+{
     vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
             factorization.push_back(d);
             n /= d;
         }
@@ -66,25 +73,42 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 
 
+
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    for (ll i = 0; i < n; i++) cin >> a[i];
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    sort(a.begin(), a.end());
 
-    unordered_set<int> st(arr.begin(), arr.end());
 
-    if(st.size() == n) NO;
-    else YES;
+    unordered_map<int, vector<ll>> pos;
 
+    for (ll i = 0; i < n; i++) pos[a[i] % 2].push_back(i);
+
+    if (pos[0].empty() || pos[1].empty())
+    {
+        cout << 0 << endl;
+        return;
+    }
+
+    ll ans = LLONG_MAX;
+    for (int p = 0; p < 2; p++)
+    {
+        auto v = pos[p];
+        ll left  = v.front();
+        ll right = v.back();
+        ans = min(ans, left + (n - 1 - right));
+    }
+
+    cout << ans << endl;
 }
 
 
-
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
-
 
 int32_t main()
 {

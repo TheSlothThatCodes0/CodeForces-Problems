@@ -41,18 +41,25 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-vector<long long> primeFactors(long long n) {
+vector<long long> primeFactors(long long n)
+{
     vector<long long> factorization;
-    for (long long d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
+    for (long long d = 2; d * d <= n; d++)
+    {
+        while (n % d == 0)
+        {
             factorization.push_back(d);
             n /= d;
         }
@@ -65,26 +72,71 @@ vector<long long> primeFactors(long long n) {
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
-
 void TheSlothThatCodes()
 {
-    int n; cin >> n;
-    vll arr(n);
+    int n, m;
+    cin >> n >> m;
 
-    for(int i = 0; i < n; i++) cin >> arr[i];
+    vector<vector<int>> arr(n, vector<int>(m));
 
-    unordered_set<int> st(arr.begin(), arr.end());
+    int maxi = 0;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> arr[i][j];
+            maxi = max(maxi, arr[i][j]);
+        }
+    }
+    vector<pair<int, int>> pos;
+    unordered_map<int, int> fre;
+    unordered_set<int> r_st, c_st;
 
-    if(st.size() == n) NO;
-    else YES;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (arr[i][j] == maxi)
+            {
+                r_st.insert(i);
+                c_st.insert(j);
+                pos.push_back({i, j});
+                fre[j]++;
+            }
+        }
+    }
 
+    int x = fre.size();
+
+    bool flag = false;
+
+    if (r_st.size() <= 1 || c_st.size() <= 1)
+    {
+        flag = true;
+    }
+    
+    else
+    {
+        for (int i : r_st)
+        {
+            int elim = 0;
+            for (auto &p : pos)
+            {
+                if (p.first == i && fre[p.second] == 1)
+                    elim++;
+            }
+            if (elim >= x - 1)
+            {
+                flag = true;
+                break;
+            }
+        }
+    }
+    cout << (flag ? maxi - 1 : maxi) << "\n";
 }
 
-
-
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
-
 
 int32_t main()
 {

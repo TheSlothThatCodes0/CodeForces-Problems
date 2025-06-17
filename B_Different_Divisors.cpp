@@ -41,40 +41,72 @@ int lcm(vll a)
     return result;
 }
 
-int checkAndIncrement(int x) {
-    if (x - floor(x) > 0) {
+int checkAndIncrement(int x)
+{
+    if (x - floor(x) > 0)
+    {
         return x + 1;
-    } else {
+    }
+    else
+    {
         return x;
     }
 }
 
-// ____________________________________________________________________________________________________________
-// ____________________________________________________________________________________________________________
-
-
-void TheSlothThatCodes()
+vector<long long> primeFactors(long long n)
 {
-    int n; cin >> n;
-
-    vll a = {1, 1+n, 1+2*n};
-
-    int x= lcm(a);
-    if (x - (1+2*n) >= n)
+    vector<long long> factorization;
+    for (long long d = 1; d * d <= n; d++)
     {
-        cout << x << endl;
+        while (n % d == 0)
+        {
+            factorization.push_back(d);
+            n /= d;
+        }
     }
-    else
-    {
-        a.pb(1+3*n);
-        cout << lcm(a) << endl;
-    }
-    
+    if (n > 1)
+        factorization.push_back(n);
+    return factorization;
 }
 
 // ____________________________________________________________________________________________________________
 // ____________________________________________________________________________________________________________
 
+bool isPrime(int n)
+{
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+
+    for (int i = 5; i * i <= n; i += 6)
+    {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    }
+    return true;
+}
+
+void TheSlothThatCodes()
+{
+    int d;
+    cin >> d;
+
+    int p1 = 1 + d;
+    while (!isPrime(p1))
+        p1++;
+
+    int p2 = p1 + d;
+    while (!isPrime(p2))
+        p2++;
+
+    cout << 1LL * p1 * p2 << endl;
+}
+
+// ____________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________
 
 int32_t main()
 {
